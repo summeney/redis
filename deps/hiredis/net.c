@@ -31,6 +31,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+#define _POSIX_C_SOURCE 200112L
 
 #include "fmacros.h"
 #include <sys/types.h>
@@ -53,6 +54,13 @@
 
 #include "net.h"
 #include "sds.h"
+
+/* Cygwin Fix */
+#ifdef __CYGWIN__
+#define TCP_KEEPCNT 8
+#define TCP_KEEPINTVL 150
+#define TCP_KEEPIDLE 14400
+#endif
 
 /* Defined in hiredis.c */
 void __redisSetError(redisContext *c, int type, const char *str);
